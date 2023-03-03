@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <form method="post">
+        <div class="converter">
+            <div class="converter-header">
+                <h1 class="head">Конвертер валют</h1>
+            </div>
+            <div class="form-area">
+                <div class="input-area">
+                    <div>
+                        <label for="amount">Сумма</label>
+                        <input type="number" name="amount" id="amount" placeholder="Введите количество" {% if amount %} value="{{ amount }}" {% endif %}>
+                    </div>
+                    <div>
+                        <label for="from">Отдаём</label>
+                        <select name="currency_from" id="from">
+                            {% for currency in currencies %}
+                                <option value="{{ currency }}" {% if currency == from_currency %} selected {% endif %}>{{ currency }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                <label for="to">Получаем</label>
+                <select name="currency_to" id="to">
+                     {% for currency in currencies %}
+                        <option value="{{ currency }}" {% if currency == to_currency %} selected {% endif %}>{{ currency }}</option>
+                     {% endfor %}
+                </select>
+            </div>
+                </div>
+                <div class="buttons">
+                    <button type="submit">Расчитать</button>
+                    <button type="reset">Сбросить</button>
+                </div>
+            </div>
+
+
+            {% if result %}
+                <div>
+                    <p>Получаем {{ result }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </form>
+</body>
+</html>
